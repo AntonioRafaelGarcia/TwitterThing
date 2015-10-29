@@ -12,3 +12,18 @@ func reverseArray() -> [Int]{
 }
 
 reverseArray()
+
+
+for (var index = 1; index <= 10; index++){
+    print(index)
+}
+
+var array = ["a", "b", "c", "d", "e", "f"]
+
+for (var index = 0; index <= array.count - 1; index++){
+    print(array[index])
+}
+
+for string in array {
+    print(string)
+}
