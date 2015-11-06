@@ -75,7 +75,11 @@ class HomeTweetViewController: UIViewController, UITableViewDataSource, UITableV
         self.tableView.dataSource = self
         self.tableView.estimatedRowHeight = 100
         self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.registerNib(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
+        
+        
     }
+    
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -87,22 +91,17 @@ class HomeTweetViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //part 1 - dequeue cell
-        let cell = tableView.dequeueReusableCellWithIdentifier("tweet", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
         let tweet = self.tweets[indexPath.row]
-        
-        //part 2 - configure cell
-        //cell.textLabel?.text = "\(indexPath.row)"
-        cell.textLabel?.text = tweet.text
-        
-        if let user = tweet.user {
-            cell.detailTextLabel?.text = "Posted by: \(user.username)"
-        } else {
-            cell.detailTextLabel?.text = "Posted by: Sponser."
-        }
-        
+        cell.tweet = tweet
+
         
         //part 3 - return cell to table
         return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.performSegueWithIdentifier("IndividualTweetSegue", sender: nil)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
